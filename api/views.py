@@ -9,7 +9,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-     ordering_fields = ['name']
+    ordering_fields = ['name'] # Indentation fixed
     ordering = ['name']
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -19,7 +19,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['category', 'stock']
     search_fields = ['name', 'category__name']
-     ordering_fields = ['price', 'stock', 'name']
+    ordering_fields = ['price', 'stock', 'name'] # Indentation fixed
     ordering = ['-created_at']
 
     def perform_create(self, serializer):
@@ -28,4 +28,4 @@ class ProductViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAdminUser] # Only admins can view all users
+    permission_classes = [permissions.IsAdminUser]
