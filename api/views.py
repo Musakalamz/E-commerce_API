@@ -9,6 +9,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+     ordering_fields = ['name']
+    ordering = ['name']
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -17,6 +19,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['category', 'stock']
     search_fields = ['name', 'category__name']
+     ordering_fields = ['price', 'stock', 'name']
+    ordering = ['-created_at']
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
