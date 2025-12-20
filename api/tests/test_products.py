@@ -24,4 +24,4 @@ class ProductAPITests(APITestCase):
             'category': self.category.id
         }
         response = self.client.post(self.url, data)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
