@@ -1,3 +1,4 @@
+# Add OrderingFilter to imports
 from rest_framework import viewsets, permissions, filters
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
@@ -9,17 +10,20 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    ordering_fields = ['name'] # Indentation fixed
+    # Add OrderingFilter here
+    filter_backends = [filters.OrderingFilter] 
+    ordering_fields = ['name']
     ordering = ['name']
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    # Add OrderingFilter to the list
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['category', 'stock']
     search_fields = ['name', 'category__name']
-    ordering_fields = ['price', 'stock', 'name'] # Indentation fixed
+    ordering_fields = ['price', 'stock', 'name']
     ordering = ['-created_at']
 
     def perform_create(self, serializer):
