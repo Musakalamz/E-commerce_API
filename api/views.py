@@ -1,6 +1,8 @@
 from rest_framework import viewsets, permissions, filters
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -17,3 +19,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAdminUser] # Only admins can view all users
